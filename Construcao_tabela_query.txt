@@ -1,0 +1,60 @@
+Tratando dados.
+
+
+ALTER TABLE `t6grupo1`.`games_details` 
+ADD CONSTRAINT `n`
+  FOREIGN KEY (`GAME_ID`)
+  REFERENCES `t6grupo1`.`Games` (`GAME_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+ALTER TABLE `t6grupo1`.`games_details` 
+ADD CONSTRAINT `x`
+  FOREIGN KEY (`TEAM_ID`)
+  REFERENCES `t6grupo1`.`Teams` (`TEAM_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `t6grupo1`.`Games` 
+DROP COLUMN `TEAM_ID_away`,
+DROP COLUMN `TEAM_ID_home`,
+CHANGE COLUMN `GAME_ID` `GAME_ID` INT NOT NULL ,
+ADD PRIMARY KEY (`GAME_ID`),
+ADD INDEX `teams_home_idx` (`HOME_TEAM_ID` ASC) VISIBLE,
+ADD INDEX `teams_visitor_idx` (`VISITOR_TEAM_ID` ASC) VISIBLE;
+;
+ALTER TABLE `t6grupo1`.`Games` 
+ADD CONSTRAINT `teams_home`
+  FOREIGN KEY (`HOME_TEAM_ID`)
+  REFERENCES `t6grupo1`.`Teams` (`TEAM_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `teams_visitor`
+  FOREIGN KEY (`VISITOR_TEAM_ID`)
+  REFERENCES `t6grupo1`.`Teams` (`TEAM_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+Alter table ranking drop column league_id, add index teams_idx(Team_ID ASC) visible;
+Alter table ranking add constraint teams foreign key(TEAM_ID) references Teams(TEAM_ID) on DELETE NO action on update no action;
+
+
+ALTER TABLE `t6grupo1`.`Teams` 
+DROP COLUMN `MAX_YEAR`,
+DROP COLUMN `MIN_YEAR`,
+DROP COLUMN `LEAGUE_ID`,
+ADD PRIMARY KEY (`TEAM_ID`);
+
+
+
+
+COMANDOS DE BUSCA COM INNER JOIN
+
+
+Buscando os jogadores em 2019  com pontuação acima de 25 pts.
+select dt.PLAYER_NAME, dt.PTS, G.GAME_DATE_EST as `Data_Do_jogo` from games_details as dt 
+inner join Games as G on G.GAME_ID=dt.GAME_ID
+where PTS>25 and G.SEASON=2019 order by PTS desc limit 10;
+
+
