@@ -1,0 +1,78 @@
+Teams
+
+ALTER TABLE `projeto`.`teams` 
+DROP COLUMN `MAX_YEAR`,
+DROP COLUMN `MIN_YEAR`,
+DROP COLUMN `LEAGUE_ID`,
+ADD PRIMARY KEY (`TEAM_ID`);
+;
+
+Ranking
+
+ALTER TABLE `projeto`.`ranking` 
+DROP COLUMN `LEAGUE_ID`,
+ADD INDEX `teams_idx` (`TEAM_ID` ASC) VISIBLE;
+;
+ALTER TABLE `projeto`.`ranking` 
+ADD CONSTRAINT `teams`
+  FOREIGN KEY (`TEAM_ID`)
+  REFERENCES `projeto`.`teams` (`TEAM_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+Games
+
+ALTER TABLE `projeto`.`games` 
+DROP COLUMN `TEAM_ID_away`,
+DROP COLUMN `TEAM_ID_home`,
+CHANGE COLUMN `GAME_ID` `GAME_ID` INT NOT NULL ,
+ADD PRIMARY KEY (`GAME_ID`),
+ADD INDEX `teams_home_idx` (`HOME_TEAM_ID` ASC) VISIBLE,
+ADD INDEX `teams_visitor_idx` (`VISITOR_TEAM_ID` ASC) VISIBLE;
+;
+
+ALTER TABLE `projeto`.`games` 
+ADD CONSTRAINT `teams_home`
+  FOREIGN KEY (`HOME_TEAM_ID`)
+  REFERENCES `projeto`.`teams` (`TEAM_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `teams_visitor`
+  FOREIGN KEY (`VISITOR_TEAM_ID`)
+  REFERENCES `projeto`.`teams` (`TEAM_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+Game_details
+
+ALTER TABLE `projeto`.`games_details` 
+ADD CONSTRAINT `n`
+  FOREIGN KEY (`GAME_ID`)
+  REFERENCES `projeto`.`games` (`GAME_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `projeto`.`games_details` 
+ADD CONSTRAINT `x`
+  FOREIGN KEY (`TEAM_ID`)
+  REFERENCES `projeto`.`teams` (`TEAM_ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+// Quais foram as vezes em que o time de casa venceu?
+SELECT * FROM GAMES WHERE HOME_TEAM_WINS = 1;
+
+//Quais jogos aconteceram na temporada de 2019?
+SELECT * FROM GAMES WHERE SEASON = 2019;
+
+//Quais jogadores tiveram mais minutos em quadra?
+select h.PLAYER_NAME, h.TEAM_ABBREVIATION, SUM(MIN) AS TEMPO from games_details as h
+inner join Games as b on h.GAME_ID=b.GAME_ID 
+GROUP BY h.PLAYER_NAME, h.TEAM_ABBREVIATION ORDER BY TEMPO DESC limit 10;
+
+//Quais foram as vezes em que o Atlanta Hawks participou numa final como time da casa?
+SELECT * FROM GAMES WHERE HOME_TEAM_ID = 1610612737;
+
+//Quantos pontos os times da casa fizeram no ultimo jogo de 2019?
+SELECT PTS_HOME FROM GAMES WHERE GAME_DATE_EST = '2019-12-31';
