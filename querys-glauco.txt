@@ -1,0 +1,19 @@
+
+
+ QUERY DO GLAUCO
+Buscando as maiores Arenas.
+select NICKNAME,ARENACAPACITY  from Teams where ARENACAPACITY=(select max(ARENACAPACITY) from Teams);
+select NICKNAME,ARENACAPACITY  from Teams where ARENACAPACITY=(select min(ARENACAPACITY) from Teams where ARENACAPACITY>0);
+
+
+Jogador com mais minutos jogados em 2019
+select h.PLAYER_NAME, h.TEAM_ABBREVIATION, SUM(MIN) AS TEMPO from games_details as h
+inner join Games as b on h.GAME_ID=b.GAME_ID 
+where b.SEASON=2019 GROUP BY h.PLAYER_NAME, h.TEAM_ABBREVIATION ORDER BY TEMPO DESC limit 10;
+
+
+
+Times com maior inicio de série sem vencer 
+select * from Ranking where L > 9 AND W = 0 ORDER BY G DESC;
+times com maior inicio de serie sem perder
+select * from Ranking where L = 0 AND W > 9 ORDER BY G DESC;
