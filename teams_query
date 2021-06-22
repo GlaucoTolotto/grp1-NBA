@@ -1,0 +1,37 @@
+ALTER TABLE `NBA_Resilia`.`teams` 
+CHANGE COLUMN `TEAM_ID` `TEAM_ID` INT NOT NULL ,
+ADD PRIMARY KEY (`TEAM_ID`);
+SELECT * FROM teams;
+
+DELETE FROM teams WHERE LEAGUE_ID;
+DELETE FROM teams WHERE MIN_YEAR;
+DELETE FROM teams WHERE MAX_YEAR;
+
+ALTER TABLE `NBA_Resilia`.`games_details` 
+ADD INDEX `TEAM_ID_idx` (`TEAM_ID` ASC) VISIBLE;
+;
+ALTER TABLE `NBA_Resilia`.`games_details` 
+ADD CONSTRAINT `TEAM_ID`
+FOREIGN KEY (`TEAM_ID`)
+REFERENCES `NBA_Resilia`.`teams` (`TEAM_ID`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+
+;#Qual time mais antigo?
+SELECT NICKNAME, YEARFOUNDED FROM teams ORDER BY YEARFOUNDED LIMIT 10;
+
+#Qual a capacidade de público da Arena?
+SELECT NICKNAME, ARENA, ARENACAPACITY FROM teams ORDER BY ARENACAPACITY DESC LIMIT 5;
+
+#Qual o nickname do time?
+SELECT NICKNAME FROM teams;
+
+#Qual o nome da Arena de cada time?
+SELECT NICKNAME,ARENA FROM teams;
+
+#O jogador pertence a qual time?
+SELECT Players.PLAYER_NAME, teams.TEAM_ID, teams.NICKNAME FROM Players JOIN teams
+ON teams.TEAM_ID = Players.TEAM_ID;
+ORDER BY Players.PLAYER_NAME
+
