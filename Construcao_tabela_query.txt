@@ -48,6 +48,22 @@ ADD PRIMARY KEY (`TEAM_ID`);
 
 
 
+update Games set PTS_home = NULl where PTS_home = '';
+update Games set FG_PCT_home = NULl where FG_PCT_home = '';
+update Games set FT_PCT_home = NULl where FT_PCT_home = '';
+update Games set FG3_PCT_home = NULl where FG3_PCT_home = '';
+update Games set AST_home = NULl where AST_home = '';
+update Games set REB_home = NULl where FG_PCT_home = '';
+update Games set FG_PCT_home = NULl where REB_home = '';
+update Games set PTS_away = NULl where PTS_away = '';
+update Games set FG_PCT_away = NULl where FG_PCT_away = '';
+update Games set FT_PCT_away = NULl where FT_PCT_away = '';
+update Games set FG3_PCT_away = NULl where FG3_PCT_away = '';
+update Games set AST_away = NULl where AST_away = '';
+update Games set REB_away = NULl where REB_away = '';
+
+
+
 
 COMANDOS DE BUSCA COM INNER JOIN
 
