@@ -1,0 +1,9 @@
+Maiores Pontuadores.
+select PLAYER_NAME, sum(PTS) as Total_Pontos from games_details  group by PLAYER_NAME order by Total_Pontos desc limit 3;
+
+Maiores Assitentes.
+select PLAYER_NAME, sum(AST) as Total_Assistencias from games_details  group by PLAYER_NAME order by Total_Pontos desc limit 3;
+
+Buscando os 3 times mais antigos
+select NICKNAME, YEARFOUNDED from Teams order by YEARFOUNDED limit 3;
+select NICKNAME, YEARFOUNDED from Teams order by YEARFOUNDED desc limit 3;
