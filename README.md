@@ -12,9 +12,9 @@ Começamos elaborando perguntas, para depois conseguir retirar as repostas das t
 
 #### Algumas das informações que conseguimos retirar.
 
-<img src="./parte-1-meta.PNG">
-<img src="./parte-2-meta.PNG">
-<img src="./parte-3-meta.PNG">
-<img src="./parte-4-meta.PNG">
-<img src="./parte-5-meta.PNG">
-<img src="./parte-6-meta.PNG">
+<img src="./imagens/parte-1-meta.PNG">
+<img src="./imagens/parte-2-meta.PNG">
+<img src="./imagens/parte-3-meta.PNG">
+<img src="./imagens/parte-4-meta.PNG">
+<img src="./imagens/parte-5-meta.PNG">
+<img src="./imagens/parte-6-meta.PNG">
